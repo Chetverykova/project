@@ -20,6 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('admin/home', 'HomeController@adminHome')->name('admin.home')->middleware('is_admin');
 Route::resource('transactions','TransactionsController');
+Route::post('/search/transaction', 'HomeController@searchTransaction');
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();

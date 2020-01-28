@@ -12,23 +12,22 @@ class CreateUsersSeeder extends Seeder
      */
     public function run()
     {
-        $user = [
-            [
+            User::create([
                 'name'=>'Admin',
                 'email'=>'admin@admin.com',
                 'is_admin'=>'1',
                 'password'=> bcrypt('123456'),
-            ],
-            [
-                'name'=>'User',
-                'email'=>'user@user.com',
+            ]);
+
+        $faker = Faker\Factory::create();
+
+        for($i = 0; $i < 11; $i++) {
+            App\User::create([
+                'name' => $faker->name,
+                'email' => $faker->email,
                 'is_admin'=>'0',
                 'password'=> bcrypt('123456'),
-            ],
-        ];
-
-        foreach ($user as $key => $value) {
-            User::create($value);
+            ]);
         }
     }
 }
