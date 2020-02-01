@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Transaction;
-
+use Spatie\Searchable\Search;
 class HomeController extends Controller
 {
     /**
@@ -40,6 +40,26 @@ class HomeController extends Controller
 
     public function searchTransaction(Request $request)
     {
-        
+//        $searched_data = Transaction::where('name', 'LIKE', "%" . $request->input('search_transaction') . "%")->get();
+//
+//        return view('catalog.index', compact('events'));
+
+//        $query = User::query();
+//        $query->when(request('role', false), function ($q, $role) {
+//            return $q->where('role_id', $role);
+//        });
+//        $authors = $query->get();
+
+//        $searched_data = Transaction::with('note', 'user')
+//            ->where('amount', 'LIKE', "%" . $request->input('search_transaction') . "%")
+//            ->where('user.name', 'LIKE', "%" . $request->input('search_transaction') . "%")
+//            ->get();
+
+        $searchResults = (new Search())
+            ->registerModel(Transaction::class, 'amount')
+//            ->registerModel(User::class, 'name')
+            ->perform($request->input('search_transaction'));
+
+        return response()->json($searchResults);
     }
 }

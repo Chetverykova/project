@@ -1,5 +1,7 @@
 $(function() {
 
+    alert(11111);
+
     $.ajaxSetup({
 
         headers: {
@@ -10,11 +12,11 @@ $(function() {
 
     $('#submit').click(function(){
 
-        alert('111');
+        alert(22222);
 
         $.post('/search/transaction', $('#form').serialize(), function (data) {
 
-
+            console.log(data);
 
         }, 'json');
 

@@ -5,8 +5,10 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Searchable\Searchable;
+use Spatie\Searchable\SearchResult;
 
-class User extends \TCG\Voyager\Models\User
+class User extends \TCG\Voyager\Models\User implements Searchable
 {
     use Notifiable;
 
@@ -40,5 +42,16 @@ class User extends \TCG\Voyager\Models\User
     public function transactions()
     {
         return $this->hasMany('App\Transaction');
+    }
+
+    public function getSearchResult(): SearchResult
+    {
+        $url = route('blogPost.show', $this->slug);
+
+        return new \Spatie\Searchable\SearchResult(
+            $this,
+            $this->title,
+            $url
+        );
     }
 }

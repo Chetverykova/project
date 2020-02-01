@@ -41,7 +41,9 @@
             </div>
         </div>
     </div>
+
 @endsection
-@push('scripts')
-    <script src="{{ asset('js/search.js') }}"></script>
+@push('head')
+    <!-- Scripts -->
+    <script src="{{ asset('js/search.js')}}"></script>
 @endpush
